@@ -1,0 +1,8 @@
+{
+    "env": {
+        "MONGO_USER": "gutierrpdev",
+        "MONGO_PASSWORD": "Sbn9gyZyt7XZskpq",
+        "MONGO_DB": "intelligence-assessment-events",
+        "PORT" : 8080
+    }
+}
