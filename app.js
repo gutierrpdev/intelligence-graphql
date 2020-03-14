@@ -27,7 +27,6 @@ app.use('/graphql', graphQlHttp({
 app.post('/event', function(req, res){
     restEventPost(req.body)
     .then(gameEvent => {
-        console.log(gameEvent);
         res.send(gameEvent);
     })
     .catch(err => {
@@ -48,7 +47,7 @@ mongoose.connect(
     }?retryWrites=true&w=majority`,
     {useNewUrlParser: true, useUnifiedTopology: true}
 ).then(() => {
-    app.listen(process.env.PORT);
+    app.listen(8080);
 }
 ).catch(err => {
     console.log(err);
