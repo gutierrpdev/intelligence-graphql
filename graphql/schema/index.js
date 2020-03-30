@@ -15,6 +15,12 @@ type Parameter {
     value: String!
 }
 
+
+type UserVariable {
+    name: String!
+    value: String!
+}
+
 input EventInput {
     userId: String!
     name: String!
@@ -23,13 +29,20 @@ input EventInput {
     parameters: [ParameterInput]
 }
 
+input EventFilterInput {
+    userId: String
+    name: String
+    gameName: String
+    timestamp: Int
+}
+
 input ParameterInput {
     name: String!
     value: String!
 }
 
 type RootQuery {
-    events: [Event!]!
+    events(filter: EventFilterInput): [Event!]!
 }
 
 type RootMutation {

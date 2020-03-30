@@ -35,6 +35,64 @@ app.post('/event', function(req, res){
     });
 });
 
+const blekLevelData = require('./dataProcessing/blekLevelData');
+const unpossibleTimeData = require('./dataProcessing/unpossibleTimeData');
+const edgeLevelData = require('./dataProcessing/edgeLevelData');
+const generateCsv = require("./dataProcessing/csvGenerator");
+const Event = require('./models/event');
+
+/**
+ * Provide an endpoint to generate all relevant data for Blek game.
+ * Results will be provided in csv format.
+ */
+app.get('/blekData/csv', function(req, res){
+    Event.find({gameName: "Blek"}).distinct('userId')
+        .then(userIds => {
+            const actions = userIds.map(id => {
+                return blekLevelData(id);
+            });
+            return Promise.all(actions)
+            .then(results => {
+                console.log(results);
+                generateCsv(results, "BlekData", res).send();
+            });
+        });
+});
+
+/**
+ * Provide an endpoint to generate all relevant data for Unpossible game.
+ * Results will be provided in csv format.
+ */
+app.get('/unpossibleData/csv', function(req, res){
+    Event.find({gameName: "Unpossible"}).distinct('userId')
+        .then(userIds => {
+            const actions = userIds.map(id => {
+                return unpossibleTimeData(id);
+            });
+            return Promise.all(actions)
+            .then(results => {
+                generateCsv(results, "UnpossibleData", res).send();
+            });
+        });
+});
+
+/**
+ * Provide an endpoint to generate all relevant data for Edge game.
+ * Results will be provided in csv format.
+ */
+app.get('/edgeData/csv', function(req, res){
+    Event.find({gameName: "Edge"}).distinct('userId')
+        .then(userIds => {
+            const actions = userIds.map(id => {
+                return edgeLevelData(id);
+            });
+            return Promise.all(actions)
+            .then(results => {
+                generateCsv(results, "EdgeData", res).send();
+            });
+        });
+});
+
 /** Attemp to establish a connection with mongodb database using credentials 
  * and DB name specified in nodemon.json configuration file. Upon successful
  * connection, start running server on port 8080.

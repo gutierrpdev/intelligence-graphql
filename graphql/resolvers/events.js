@@ -1,14 +1,14 @@
 const Event = require('../../models/event');
 
 module.exports = {
-    events: () => {
+    events: (args) => {
         /**
          * Ensure that the call is completed before returning from method by explicitly 
          * specifying that 'return' keyword before the db call. Otherwise db call is aborted
          * before it finishes its work and results are not as expected. (bear in mind 
          * that these calls return Promise-like objects instead of actual data oriented objects)
          */
-        return Event.find()
+        return Event.find(args.filter)
         .then(events => {
             /**
              * Make sure to discard meta information from objects returned from 
