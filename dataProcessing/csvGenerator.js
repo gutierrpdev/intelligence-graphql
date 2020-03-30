@@ -1,5 +1,3 @@
-const { parse } = require('json2csv');
- 
 function convertToCSV(objArray) {
     const array = typeof objArray != "object" ? JSON.parse(objArray) : objArray;
 
