@@ -97,13 +97,8 @@ app.get('/edgeData/csv', function(req, res){
  * and DB name specified in nodemon.json configuration file. Upon successful
  * connection, start running server on port 8080.
  */
-mongoose.connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${
-        process.env.MONGO_PASSWORD
-    }@intelligenceassessment-uibbp.mongodb.net/${
-        process.env.MONGO_DB
-    }?retryWrites=true&w=majority`,
-    {useNewUrlParser: true, useUnifiedTopology: true}
+const uri = "mongodb+srv://gutierrpdev:XcJ3LI3UUUp4Umzd@intelligenceassessment-uibbp.mongodb.net/intelligence-assessment-events?retryWrites=true&w=majority";
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}
 ).then(() => {
     app.listen(8080);
 }
